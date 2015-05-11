@@ -12,7 +12,7 @@ public class Main extends Film {
 	protected static ArrayList<Integer> numerosFilmsVus = new ArrayList<Integer>(); //contient les numéros (int) des films vus par l'utilsateur
 	protected static boolean continuer = false;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		
 		//partie extraction des informations contenues dans le txt
 		
@@ -71,6 +71,7 @@ public class Main extends Film {
 		
 		Scanner sc = new Scanner(System.in);
 		//boucle while pour vérifier que l'utilisateur n'entre que des entiers séparés par des /
+		//TODO: vérifier que les entiers entrés sont bien compris entre 1 et liste.size()+1
 		while(!continuer) {				
 			System.out.println("Veuillez entrer les numéros des films de la liste précédente que vous avez vu : (a/b/c/d)");
 			rep = '$'+sc.nextLine()+'*';
@@ -86,6 +87,7 @@ public class Main extends Film {
 		creerListePourConseiller();
 		int nbConseilMax = liste.size()-nbMax(numerosFilmsVus);
 		Scanner scan = new Scanner(System.in);
+		//TODO: vérifier que l'input est bien un entier (cf méthode précédente)
 		System.out.println("Combien de films devons-nous vous conseiller ? (Maximum : "+nbConseilMax+")");
 		int temp = scan.nextInt();	
 		Film.nbConseil = temp;
@@ -226,16 +228,18 @@ public class Main extends Film {
 	}
 	
 	//converti les String en Integer
-	public static void convert() {
+	public static void convert() throws InterruptedException {
 		for(int i=0;i<toConvert.size();i++) {
 			try
 			{
 				numerosFilmsVus.add(Integer.parseInt(toConvert.get(i))-1);
 				continuer = true;
 			}
-			catch(Exception e) {				
+			catch(NumberFormatException nfe) {	
 				continuer = false;
 				System.out.println("Merci de n'entrer que des entiers séparés par des '/'\n");
+				nfe.wait();
+				//TODO: régler problème double affichage du message ou trouver autre méthode
 			}
 		}
 	}
