@@ -10,7 +10,7 @@ public class Main extends Film {
 	protected static String rep; //contient la chaine renvoyée par l'utilisateur
 	protected static ArrayList<String> toConvert = new ArrayList<String>(); //contient les chiffres renvoyés par l'utilisateur sous forme de String
 	protected static ArrayList<Integer> numerosFilmsVus = new ArrayList<Integer>(); //contient les numéros (int) des films vus par l'utilsateur
-	
+			
 	public static void main(String[] args) throws IOException {
 		
 		//partie extraction des informations contenues dans le txt
@@ -78,17 +78,29 @@ public class Main extends Film {
 		
 		//partie traitement des films vus par l'utilisateur
 		
+		creerListePourConseiller();
+		int nbConseilMax = liste.size()-nbMax(numerosFilmsVus);
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Combien de films devons-nous vous conseiller ?");
+		System.out.println("Combien de films devons-nous vous conseiller ? (Maximum : "+nbConseilMax+")");
 		int temp = scan.nextInt();	
 		Film.nbConseil = temp;
 		scan.close();
-		sc.close();
-		creerListePourConseiller();		
+		sc.close();				
 		calculerNote();
 		rangerFilm();
 		afficherResultat();
 			    
+	}
+	
+	//calcule le nombre de films différents vus par l'utilisateur
+	public static int nbMax(ArrayList<Integer> monArray) {
+		int nb = monArray.size();
+		for (int i=0; i<monArray.size()-1;i++) {
+			if (monArray.get(i).equals(monArray.get(i+1))) {
+				nb--;
+			}
+		}
+		return nb;
 	}
 		
 	//renvoie le titre du film
