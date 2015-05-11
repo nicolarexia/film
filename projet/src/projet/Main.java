@@ -10,7 +10,8 @@ public class Main extends Film {
 	protected static String rep; //contient la chaine renvoyée par l'utilisateur
 	protected static ArrayList<String> toConvert = new ArrayList<String>(); //contient les chiffres renvoyés par l'utilisateur sous forme de String
 	protected static ArrayList<Integer> numerosFilmsVus = new ArrayList<Integer>(); //contient les numéros (int) des films vus par l'utilsateur
-			
+	protected static boolean continuer = false;
+	
 	public static void main(String[] args) throws IOException {
 		
 		//partie extraction des informations contenues dans le txt
@@ -69,11 +70,15 @@ public class Main extends Film {
 		//partie acquisition des films vus par l'utilisateur
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Veuillez entrer les numéros des films de la liste précédente que vous avez vu : (a/b/c/d)");
-		rep = '$'+sc.nextLine()+'*';
+		//boucle while pour vérifier que l'utilisateur n'entre que des entiers séparés par des /
+		while(!continuer) {				
+			System.out.println("Veuillez entrer les numéros des films de la liste précédente que vous avez vu : (a/b/c/d)");
+			rep = '$'+sc.nextLine()+'*';
+			
+			separer();
+			convert();			
+		}
 		
-		separer();
-		convert();
 		addVu();
 		
 		//partie traitement des films vus par l'utilisateur
@@ -223,7 +228,15 @@ public class Main extends Film {
 	//converti les String en Integer
 	public static void convert() {
 		for(int i=0;i<toConvert.size();i++) {
-			numerosFilmsVus.add(Integer.parseInt(toConvert.get(i))-1);
+			try
+			{
+				numerosFilmsVus.add(Integer.parseInt(toConvert.get(i))-1);
+				continuer = true;
+			}
+			catch(Exception e) {				
+				continuer = false;
+				System.out.println("Merci de n'entrer que des entiers séparés par des '/'\n");
+			}
 		}
 	}
 	
