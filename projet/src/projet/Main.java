@@ -179,7 +179,7 @@ public class Main extends Film {
 			liste.get(i).genre[15] = liste.get(i).monFilm.get(3).contains("War");
 			liste.get(i).genre[16] = liste.get(i).monFilm.get(3).contains("Sport");
 			liste.get(i).genre[17] = liste.get(i).monFilm.get(3).contains("Biography");
-			liste.get(i).genre[18] = liste.get(i).monFilm.get(3).contains("Musical");
+			liste.get(i).genre[18] = liste.get(i).monFilm.get(3).contains("Music");
 			i++;			
 		}
 	}
