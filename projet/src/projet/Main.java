@@ -46,6 +46,7 @@ public class Main extends Film {
 				Film unFilm = new Film();
 				liste.add(unFilm);
 				unFilm.monFilm.add(getTitre(i));
+				unFilm.genre[0]=getSerie(i);
 				unFilm.monFilm.add(getAnnee(i));
 			}			
 			i++;
@@ -55,7 +56,6 @@ public class Main extends Film {
 		addActor();
 		addGenre();
 		defGenre();
-		addType();
 		
 		//test fonctionnement de l'extraction
 		/*for(int j=0;j<liste.size();j++) {
@@ -112,7 +112,7 @@ public class Main extends Film {
 		}
 		*/
 		
-		evaluer();
+		//evaluer();
 		
 		//test remplissage de note[]
 		/*for (int j=0; j<note.length;j++) {
@@ -121,13 +121,24 @@ public class Main extends Film {
 		
 		System.out.println(" ");
 		System.out.println("Nous vous conseillons les films suivant:\n");
-		afficherConseil();
+		
+		//test fonction calculerNote
+		calculerNote();
+		for(int k=0;k<note.length;k++) {
+			System.out.println(note[k]);
+		}
+		
+		//afficherConseil();
 			    
 	}
 		
 	
 	public static String getTitre(int i) {
 		return arraytxt.get(i+2).substring(arraytxt.get(i+2).indexOf('.')+3,arraytxt.get(i+2).indexOf('(')-1);
+	}
+	
+	public static Boolean getSerie(int i){
+		return arraytxt.get(i+2).contains("TV Series");
 	}
 	
 	public static String getAnnee(int i) {
@@ -186,7 +197,7 @@ public class Main extends Film {
 	}
 	
 	public static void defGenre() {
-		int i=0;
+		int i=0;		
 		while(i<liste.size()) {
 			liste.get(i).genre[1] = liste.get(i).monFilm.get(3).contains("Action");
 			liste.get(i).genre[2] = liste.get(i).monFilm.get(3).contains("Crime");
@@ -204,23 +215,25 @@ public class Main extends Film {
 			liste.get(i).genre[14] = liste.get(i).monFilm.get(3).contains("History");
 			liste.get(i).genre[15] = liste.get(i).monFilm.get(3).contains("War");
 			liste.get(i).genre[16] = liste.get(i).monFilm.get(3).contains("Sport");
-			liste.get(i).genre[17] = liste.get(i).monFilm.get(3).contains("Biography");				
+			liste.get(i).genre[17] = liste.get(i).monFilm.get(3).contains("Biography");
+			liste.get(i).genre[18] = liste.get(i).monFilm.get(3).contains("Musical");
 			i++;			
 		}
 	}
 	
-	public static void addType() {
+	
+	//à supprimer quand je serai sûr de moi
+	/*public static void addType() {
 		int i=0;
 		int j=0;
 		while(i<arraytxt.size()-2) {
-			if(arraytxt.get(i).length() == 0 && arraytxt.get(i+1).length() == 0) {
+			if(arraytxt.get(i).length() == 0 && arraytxt.get(i+1).length() == 0 | i==0) {
 				liste.get(j).genre[0] = arraytxt.get(i+2).contains("TV Series");					 
-			if(j<liste.size())
 				j++;
 			}
 			i++;
 		}
-	}
+	}*/
 	
 	public static void separer() {
 		int i=0;

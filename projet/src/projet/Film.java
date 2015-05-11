@@ -8,7 +8,7 @@ public class Film {
 	protected static ArrayList<Film> vuUtil = new ArrayList<Film>(); //liste des films vus par l'utilisateur
 	protected static ArrayList<Film> filmsConseilles = new ArrayList<Film>(); //liste des films conseillés
 	protected static ArrayList<Film> listePourConseiller = new ArrayList<Film>(); //liste des films pouvant être conseillés (= liste - vuUtil)
-	protected static int note[] = new int[18]; //liste contenant les "notes" de chaque film vu par l'utilisateur pour la comparaison
+	protected static int note[]; //liste contenant les "notes" de chaque film vu par l'utilisateur pour la comparaison
 	
 	protected ArrayList<String> monFilm;
 	protected Boolean genre[];
@@ -17,7 +17,7 @@ public class Film {
 	public Film() {	
 		
 		this.monFilm = new ArrayList<String>();
-		this.genre = new Boolean[18];
+		this.genre = new Boolean[19];
 		this.mesActeurs = new ArrayList<String>();
 		
 		
@@ -52,7 +52,7 @@ public class Film {
 		}
 	}
 	
-	public static void evaluer() { //rempli note[]
+	/*public static void evaluer() { //rempli note[]
 		for(int k=0;k<note.length;k++){
 			note[k]=0;
 		}
@@ -63,9 +63,62 @@ public class Film {
 				}
 			}
 		}
+	}*/
+	
+	public static void calculerNote() {
+		
+		//on initialise le tableau à 0, en lui donnant la taille de listePourConseiller
+		note = new int[listePourConseiller.size()];
+		for (int i=0;i<note.length;i++) {
+			note[i]=0;
+		}
+		
+		//on ajoute +3 aux films ayant un réalisateur en commun avec la liste des films vus (inutile pour le moment : cas impossible avec notre txt_source)
+		for (int i=0; i<vuUtil.size();i++) {
+			for (int j=0;j<listePourConseiller.size();j++) {
+				if(listePourConseiller.get(j).monFilm.get(2).contains(vuUtil.get(i).monFilm.get(2))) {
+					note[j]+=3;
+				}
+			}
+		}
+		
+		//on ajoute +2 aux films ayant un acteur en commun avec la liste des films vus
+		for (int i=0; i<vuUtil.size();i++) {		
+			for (int j=0;j<listePourConseiller.size();j++) {
+				for (int k=0;k<vuUtil.get(i).mesActeurs.size();k++) {
+					for (int l=0; l<listePourConseiller.get(j).mesActeurs.size();l++) {
+						if(listePourConseiller.get(j).mesActeurs.get(l).equals(vuUtil.get(i).mesActeurs.get(k))) {
+							note[j]+=2;
+						}
+					}
+					
+				}
+			}				
+		}
+		
+		//on ajoute +1 aux films ayant un genre en comment avec la liste des films vus
+		for (int i=0;i<vuUtil.size();i++) { 
+				for(int j=0;j<listePourConseiller.size();j++) {
+					//System.out.println(listePourConseiller.get(j).genre.length); //TEST
+					for(int k=0;k<listePourConseiller.get(j).genre.length;k++) {
+						//System.out.println("LALA"); //TEST
+							System.out.println(listePourConseiller.get(j).monFilm.get(0));
+							System.out.println(listePourConseiller.get(j).genre[k]);
+						
+					}
+				}				
+		}
+		
+		
+		
+		
+				
+		
 	}
 	
-	public static void afficherConseil() {	
+	//TODO : un tableau contenant les notes de chaques films (+1 si même genre, +2 si mêmes acteurs) on affiche ensuite les 10 premiers films de cette liste
+	
+	/*public static void afficherConseil() {	
 		
 		ArrayList<Film> tmp = new ArrayList<Film>();
 		
@@ -73,6 +126,7 @@ public class Film {
 			filmsConseilles.add(listePourConseiller.get(i));
 		}
 		
+		//boucle for inutile pour le moment : il n'y a aucun réalisateur en commun
 		for (int i=0; i<vuUtil.size();i++) { //ajoute à la liste tmp les films ayant les mêmes réalisateur que les films vus
 			for (int j=0;j<listePourConseiller.size();j++) {
 				if(listePourConseiller.get(j).monFilm.get(2).contains(vuUtil.get(i).monFilm.get(2)) && !tmp.contains(listePourConseiller.get(i))) {
@@ -93,8 +147,7 @@ public class Film {
 					if(cpt!=0 && !tmp.contains(listePourConseiller.get(j))) {
 						tmp.add(listePourConseiller.get(j));
 					}
-				}
-				
+				}				
 			}
 		}
 		
@@ -107,6 +160,8 @@ public class Film {
 				}				
 			}
 		}
+		
+		
 		
 		for(int j=0;j<tmp.size();j++) { //on supprime de filmsConseilles les films presents dans tmp
 				if(filmsConseilles.contains(tmp.get(j))) {
@@ -130,7 +185,7 @@ public class Film {
 			System.out.println("Aucun film à conseiller");
 		}
 				
-	}
+	}*/
 	
 	
 }		
