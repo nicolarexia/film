@@ -6,10 +6,10 @@ public class Film {
 	
 	protected static ArrayList<Film> liste = new ArrayList<Film>(); //liste des films du fichier source
 	protected static ArrayList<Film> vuUtil = new ArrayList<Film>(); //liste des films vus par l'utilisateur
-	protected static ArrayList<Film> filmsConseilles = new ArrayList<Film>(); //liste des films conseillés
-	protected static ArrayList<Film> listePourConseiller = new ArrayList<Film>(); //liste des films pouvant être conseillés (= liste - vuUtil)
+	protected static ArrayList<Film> listePourConseiller = new ArrayList<Film>(); //liste des films à conseiller
 	protected static int note[]; //tableau contenant les "notes" de chaque film non vu par l'utilisateur pour la comparaison
 	protected static int filmRange[]; //tableau contenant les notes des films non vus par odre décroissant
+	protected static int nbConseil; //nombre de film que l'utilisateur veut recevoir en conseil
 	
 	protected ArrayList<String> monFilm;
 	protected Boolean genre[];
@@ -129,9 +129,16 @@ public class Film {
 	}
 	
 	public static void afficherResultat() {
-		int n = 10; //nombre de film à afficher
-		for (int i=0;i<n;i++) {
-			System.out.println(listePourConseiller.get(filmRange[i]).monFilm.get(0));
+		if(nbConseil<listePourConseiller.size()) {
+			System.out.println("Nous vous conseillons les films suivant (par ordre décroissant de pertinence):\n");
+			for (int i=0;i<nbConseil;i++) {
+				System.out.println(listePourConseiller.get(filmRange[i]).monFilm.get(0));
+			}
+		} else {
+			System.out.println("Vous avez saisi un nombre de films à conseiller trop important. Voici ce que nous pouvons vous conseiller (par ordre décroissant de pertinence) :\n");
+			for (int i=0;i<listePourConseiller.size();i++) {
+				System.out.println(listePourConseiller.get(filmRange[i]).monFilm.get(0));
+			}
 		}
 	}
 	

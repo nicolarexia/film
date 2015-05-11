@@ -71,21 +71,22 @@ public class Main extends Film {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez entrer les numéros des films de la liste précédente que vous avez vu : (a/b/c/d)");
 		rep = '$'+sc.nextLine()+'*';
-		sc.close();
+		
 		separer();
 		convert();
 		addVu();
 		
 		//partie traitement des films vus par l'utilisateur
 		
-		creerListePourConseiller();
-		
-		System.out.println(" ");
-		System.out.println("Nous vous conseillons les films suivant:\n");
-		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Combien de films devons-nous vous conseiller ?");
+		int temp = scan.nextInt();	
+		Film.nbConseil = temp;
+		scan.close();
+		sc.close();
+		creerListePourConseiller();		
 		calculerNote();
 		rangerFilm();
-		
 		afficherResultat();
 			    
 	}
