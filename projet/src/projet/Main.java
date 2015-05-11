@@ -18,7 +18,6 @@ public class Main extends Film {
 		File inputFile = new File("txt_source.txt");
 	    BufferedReader lecteur = null;
 		String ligne;
-		int i = 0;
 		
 	    try
 	    {
@@ -34,9 +33,16 @@ public class Main extends Film {
 	    } 
 	       
 	 
+	    int i = 0;
+	    
 		while (i < arraytxt.size()-2) {
 			
-			if(arraytxt.get(i).length() == 0 && arraytxt.get(i+1).length() == 0) {
+			if(i==0) {
+				Film unFilm = new Film();
+				liste.add(unFilm);
+				unFilm.monFilm.add(arraytxt.get(i).substring(arraytxt.get(i).indexOf('.')+3,arraytxt.get(i).indexOf('(')-1));
+				unFilm.monFilm.add(arraytxt.get(i).substring(arraytxt.get(i).indexOf('(')+1,arraytxt.get(i).indexOf('(')+5));
+			} else if (arraytxt.get(i).length() == 0 && arraytxt.get(i+1).length() == 0) {
 				Film unFilm = new Film();
 				liste.add(unFilm);
 				unFilm.monFilm.add(getTitre(i));
