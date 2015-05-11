@@ -57,23 +57,6 @@ public class Main extends Film {
 		addGenre();
 		defGenre();
 		
-		//test fonctionnement de l'extraction
-		/*for(int j=0;j<liste.size();j++) {
-			System.out.println(liste.get(j).monFilm.get(0)); //Title
-			System.out.println(liste.get(j).monFilm.get(1)); //Year
-			System.out.println(liste.get(j).monFilm.get(2)); //Director
-			System.out.println(liste.get(j).monFilm.get(3)); //Gender
-			System.out.println(liste.get(j).genre[0]); //TV Series
-		}*/
-		
-		
-		//test Acteurs
-		/*for (int j=0;j<liste.size();j++) {
-			for (int i1=0;i1<liste.get(j).mesActeurs.size();i1++) {
-				System.out.println(liste.get(j).mesActeurs.get(i1));	
-			}
-		}*/
-		
 		//presentation des films à l'utilisateur
 		
 		int cpt=1;
@@ -93,58 +76,36 @@ public class Main extends Film {
 		convert();
 		addVu();
 		
-		//test de l'acquisition		
-		/*for(int j=0; j<toConvert.size();j++) {
-			System.out.println(toConvert.get(j));
-			System.out.println(numerosFilmsVus.get(j));
-		}
-		for (int j=0; j<numerosFilmsVus.size();j++) {
-			System.out.println(liste.get(numerosFilmsVus.get(j)));
-		*/
-
-		//partie trie des films
+		//partie traitement des films vus par l'utilisateur
 		
 		creerListePourConseiller();
-		
-		//test création listePourConseiller
-		/*for(int j=0; j<listePourConseiller.size();j++) {
-			System.out.println(listePourConseiller.get(j));
-		}
-		*/
-		
-		//evaluer();
-		
-		//test remplissage de note[]
-		/*for (int j=0; j<note.length;j++) {
-			System.out.println(note[j]);
-		}*/
 		
 		System.out.println(" ");
 		System.out.println("Nous vous conseillons les films suivant:\n");
 		
-		//test fonction calculerNote
 		calculerNote();
-		for(int k=0;k<note.length;k++) {
-			System.out.println(note[k]);
-		}
+		rangerFilm();
 		
-		//afficherConseil();
+		afficherResultat();
 			    
 	}
 		
-	
+	//renvoie le titre du film
 	public static String getTitre(int i) {
 		return arraytxt.get(i+2).substring(arraytxt.get(i+2).indexOf('.')+3,arraytxt.get(i+2).indexOf('(')-1);
 	}
 	
+	//renvoie un booleen vrai si c'est une série
 	public static Boolean getSerie(int i){
 		return arraytxt.get(i+2).contains("TV Series");
 	}
 	
+	//renvoie l'annee de parution du film
 	public static String getAnnee(int i) {
 		return arraytxt.get(i+2).substring(arraytxt.get(i+2).indexOf('(')+1,arraytxt.get(i+2).indexOf('(')+5);
 	}
-		
+	
+	//ajoute le réalisateur		
 	public static void addDirector() {	
 		int i=0;
 		int j=0;
@@ -162,6 +123,7 @@ public class Main extends Film {
 		}
 	}
 	
+	//rajoute les genres du film
 	public static void addGenre() {
 		int i=0;
 		int j=0;
@@ -174,7 +136,7 @@ public class Main extends Film {
 		}
 	}
 	
-	
+	//rajoute les acteurs
 	public static void addActor() {
 		int i=0;
 		int k = 0;
@@ -196,6 +158,7 @@ public class Main extends Film {
 		}
 	}
 	
+	//definit les genres
 	public static void defGenre() {
 		int i=0;		
 		while(i<liste.size()) {
@@ -221,20 +184,7 @@ public class Main extends Film {
 		}
 	}
 	
-	
-	//à supprimer quand je serai sûr de moi
-	/*public static void addType() {
-		int i=0;
-		int j=0;
-		while(i<arraytxt.size()-2) {
-			if(arraytxt.get(i).length() == 0 && arraytxt.get(i+1).length() == 0 | i==0) {
-				liste.get(j).genre[0] = arraytxt.get(i+2).contains("TV Series");					 
-				j++;
-			}
-			i++;
-		}
-	}*/
-	
+	//sépare en String ne contenant que des chiffres le String entré par l'utilisateur
 	public static void separer() {
 		int i=0;
 		while(rep.charAt(i) != '*') {
@@ -257,12 +207,14 @@ public class Main extends Film {
 		}
 	}
 	
+	//converti les String en Integer
 	public static void convert() {
 		for(int i=0;i<toConvert.size();i++) {
 			numerosFilmsVus.add(Integer.parseInt(toConvert.get(i))-1);
 		}
 	}
 	
+	//ajoute à la liste vuUtil les films vus par l'utilisateur	
 	public static void addVu() {
 		for(int i=0;i<numerosFilmsVus.size();i++) {
 			vuUtil.add(liste.get(numerosFilmsVus.get(i)));
