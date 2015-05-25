@@ -40,6 +40,7 @@ public class Film {
 		15 War = false;
 		16 Sport = false;
 		17 Biography = false;
+		18 Musical = false;
 		*/
 		
 	}

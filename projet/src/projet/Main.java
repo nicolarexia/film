@@ -71,11 +71,9 @@ public class Main extends Film {
 		
 		Scanner sc = new Scanner(System.in);
 		//boucle while pour vérifier que l'utilisateur n'entre que des entiers séparés par des /
-		//TODO: vérifier que les entiers entrés sont bien compris entre 1 et liste.size()+1
 		while(!continuer) {				
 			System.out.println("Veuillez entrer les numéros des films de la liste précédente que vous avez vu : (a/b/c/d)");
-			rep = '$'+sc.nextLine()+'*';
-			
+			rep = '$'+sc.nextLine()+'*';			
 			separer();
 			convert();			
 		}
@@ -87,7 +85,6 @@ public class Main extends Film {
 		creerListePourConseiller();
 		int nbConseilMax = liste.size()-nbMax(numerosFilmsVus);
 		Scanner scan = new Scanner(System.in);
-		//TODO: vérifier que l'input est bien un entier (cf méthode précédente)
 		System.out.println("Combien de films devons-nous vous conseiller ? (Maximum : "+nbConseilMax+")");
 		int temp = scan.nextInt();	
 		Film.nbConseil = temp;
@@ -238,7 +235,7 @@ public class Main extends Film {
 			catch(NumberFormatException nfe) {	
 				continuer = false;
 				System.out.println("Merci de n'entrer que des entiers séparés par des '/'\n");
-				nfe.wait();
+				//nfe.wait();
 				//TODO: régler problème double affichage du message ou trouver autre méthode
 			}
 		}
