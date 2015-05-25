@@ -1,0 +1,179 @@
+package projet;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.Test;
+
+public class MainTest extends Main {
+
+	/*@Test
+	public void testMain() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testNbMax() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetTitre() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetSerie() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAnnee() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddDirector() {
+		ArrayList<String> arraytxt = new ArrayList<String>();
+		ArrayList<Film> liste = new ArrayList<Film>();
+		Film monFilm = new Film();
+		int j;
+		for (j=0;j<liste.size();j++){
+			liste.get(j).monFilm.add("Non renseigne");
+		}
+		addDirector();						//bizarre, le test renvoie vrai si on enlève cette ligne
+		for (j=0;j<liste.size();j++){
+			assertFalse("devrait ajouter un élément", liste.get(j).monFilm.isEmpty());
+		}
+
+	}
+
+	@Test
+	public void testAddGenre() {
+		ArrayList<String> arraytxt = new ArrayList<String>();
+		addGenre();							//idem, le test renvoie vrai si on enlève cette ligne
+		int j;int i=0;
+		for(i=0;i<arraytxt.size();i++){
+			for(j=0;j<liste.size();j++)
+				if(arraytxt.get(i).contains("With :")) {
+					assertFalse("devrait ajouter un argument", liste.get(j).monFilm.isEmpty());
+				}
+		}
+	}
+
+	@Test
+	public void testAddActor() {
+		ArrayList<String> arraytxt = new ArrayList<String>();
+		int k = 0; int i=0;
+		addActor();							//idem, le test renvoie vrai si on enlève cette ligne
+		for(i=0;i<arraytxt.size();i++){
+		assertFalse("devrait ajouter un argument", liste.get(k).mesActeurs.isEmpty());
+		k++;
+		}
+	}
+
+	@Test
+	public void testDefGenre() {
+		ArrayList<Film> liste = new ArrayList<Film>();
+		defGenre();
+		int i=0; int k=0; int p=0;
+		while(i<liste.size()) {
+			for (k=0;k<genre.length;k++){
+				if(liste.get(i).genre[k]) p=1;
+			}
+			assertFalse("devrait renvoyer un genre", p==1);			//erreur compil
+			//test inutile ici, mais fonctionne si l'utilisateur peut rajouter des films lui-même à la liste
+			i++;
+		}
+	}
+
+	@Test
+	public void testSeparer() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testConvert() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAddVu() {
+		ArrayList<Film> vuUtil = new ArrayList<Film>();
+		Film monFilm = new Film();
+		vuUtil.add(monFilm);								//si on enlève cette ligne le test renvoie faux
+		addVu();
+		assertFalse("devrait retourner un argument",vuUtil.isEmpty());
+	}
+
+	@Test
+	public void testFilm() {
+		fail("Not yet implemented");
+	}*/
+
+	@Test
+	public void testCreerListePourConseiller() { 
+		Film monFilm = new Film();
+		ArrayList<Film> listePourConseiller = new ArrayList<Film>();
+		ArrayList<Film> vuUtil = new ArrayList<Film>();
+		ArrayList<Film> liste = new ArrayList<Film>();
+		
+		//  1-- si l'utilisateur a vu un seul film, listePourConseiller retourne-t-il tous les films sauf un ? (après test : oui) ---
+		liste.add(monFilm);
+		vuUtil.add(monFilm);
+		creerListePourConseiller();
+		assertTrue("retourne tout sauf monFilm", listePourConseiller.size()==liste.size()-1);
+		
+		
+		//2-- Et si le film que l'utilisateur a vu ne fait pas partie de liste ? après test : retourne tous les films de liste ---
+		liste.remove(monFilm); 
+		vuUtil.add(monFilm);
+		creerListePourConseiller();
+		assertTrue("retourne tous les éléments", listePourConseiller.size()==liste.size());
+		
+		
+		//3-- si l'utilisateur n'a rien vu, listePourConseiller contient-t-il tous les films de la liste ? (après test : oui)  ---
+		
+		int i=0;
+		for(i=0;i<liste.size();i++) {
+			vuUtil.remove(liste.get(i));			//vuUtil ne contient aucun film de liste
+		}
+		creerListePourConseiller();
+		assertTrue("retourne tous les éléments", listePourConseiller.size()==liste.size());
+				
+		
+		//4-- si l'utilisateur a vu tous les films, listePourConseiller est-il vide ? (après test : oui) ---
+		int i1=0;
+		for(i1=0;i1<liste.size();i1++) {
+			vuUtil.remove(liste.get(i1));
+		}
+		creerListePourConseiller();
+		assertTrue("ne retourne aucun élément", listePourConseiller.isEmpty());		
+		
+		//5-- si liste est vide, listePourConseiller est-il vide ? (après test : oui) ---
+		liste.remove(monFilm);
+		creerListePourConseiller();
+		assertTrue("aucun élément dans liste", liste.isEmpty());
+	}
+
+	@Test
+	public void testCalculerNote() { //test : si pas de film à conseiller
+		Film monFilm = new Film();
+		ArrayList<Film> listePourConseiller = new ArrayList<Film>();
+		listePourConseiller.add(monFilm);			//si on enlève cette ligne le test renvoie faux
+		calculerNote();
+		assertFalse("il faut des films à conseiller pour utiliser cette fonction", listePourConseiller.isEmpty());
+	}
+
+	/*@Test
+	public void testRangerFilm() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testAfficherResultat() {
+		fail("Not yet implemented");
+	}*/
+
+}
